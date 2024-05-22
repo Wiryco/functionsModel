@@ -1,9 +1,14 @@
 import os
 import dotenv
 import sqlalchemy as sa
-from sqlalchemy.orm import sessionmaker
 import urllib
 import pandas as pd
+import smtplib
+import codecs
+from sqlalchemy.orm import sessionmaker
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 dotenv.load_dotenv()
 
@@ -74,6 +79,61 @@ class dataBase():
             return False, f"Erro durante a execução do script: {ex}"
         finally:
             session.close()
+
+class email():
+    def __init__(self):
+        self.host = os.getenv('emailHost')
+        self.port = os.getenv('emailPort')
+        self.user = os.getenv('emailUser')
+        self.password = os.getenv('emailPassword')
+        self.html = os.getenv('emailHtml')
+
+    def sendEmail(self, to='', subject='', msg='', sendFiles=[]):
+        sendEmail = MIMEMultipart()
+
+        server = smtplib.SMTP(self.host, self.port)
+        server.starttls()
+        server.login(self.user, self.password)
+
+        if not to:
+            print('Destinatário é parâmetro obrigatório para envio de e-mail!')
+            return False
+
+        if not subject:
+            print('Assunto é parâmetro obrigatório para envio de e-mail!')
+            return False
+
+        if not self.html and not msg:
+            print('Mensagem ou arquivo html é parâmetro obrigatório para envio de e-mail!')
+            return False
+
+        sendEmail['From'] = self.user
+        sendEmail['To'] = to
+        sendEmail['Subject'] = subject
+
+        if self.html:
+            msg_html = codecs.open(r'' + self.html, 'r', "utf-8")
+            msg = msg_html.read()
+            sendEmail.attach(MIMEText(msg, 'html'))
+        elif msg:
+            sendEmail.attach(MIMEText(msg, 'plain'))
+
+        if len(sendFiles) > 0:
+            for _file in sendFiles:
+                with open(_file, "rb") as fil:
+                    part = MIMEApplication(fil.read(), Name=os.path.basename(_file))
+                    
+                part['Content-Disposition'] = 'attachment; filename="%s"' % os.path.basename(_file)
+                sendEmail.attach(part)
+
+        try:
+            server.sendmail(sendEmail['From'], sendEmail['To'].split(';'), sendEmail.as_string())
+            return True
+        except Exception as ex:
+            server.quit()
+            return False, ex
+        finally:
+            server.quit()
             
 class functions():
     def __init__(self):
