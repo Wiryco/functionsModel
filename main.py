@@ -15,4 +15,4 @@ if __name__ == '__main__':
 
     files = [r'C:\Projetos\teste.pdf', r'C:\Projetos\teste1.pdf']
 
-    email.sendEmail(to='vinicius.anlopes@gmail.com', subject='Teste', msg='Teste', sendFiles=files)
+    email.sendEmail(to='emailteste@gmail.com', subject='Teste', msg='Teste', sendFiles=files)
