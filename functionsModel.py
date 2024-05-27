@@ -9,8 +9,32 @@ from sqlalchemy.orm import sessionmaker
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from azure.keyvault.secrets import SecretClient
+from azure.identity import ClientSecretCredential
 
 dotenv.load_dotenv()
+
+class keyVault:
+    def __init__(self):
+        self.vaultUrl = os.getenv('AZURE_VAULT_URL')
+        self.tenantId = os.getenv('AZURE_TENANT_ID')
+        self.clientId = os.getenv('AZURE_CLIENT_ID')
+        self.clientSecretId = os.getenv('AZURE_CLIENT_SECRET')
+
+        os.environ['AZURE_TENANT_ID'] = self.tenantId
+        os.environ['AZURE_CLIENT_ID'] = self.clientId
+        os.environ['AZURE_CLIENT_SECRET'] = self.clientSecretId
+
+    def setCredentials(self):
+        credential = ClientSecretCredential(tenant_id=self.tenantId,
+                                            client_id=self.clientId,
+                                            client_secret=self.clientSecretId,
+                                            additionally_allowed_tenants=["*"])
+        return credential
+
+    def getSecret(self, secret=str):
+        client = SecretClient(vault_url=self.vaultUrl, credential=self.setCredentials())
+        return client.get_secret(secret)
 
 class dataBase():
     def __init__(self):
