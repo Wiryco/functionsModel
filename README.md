@@ -17,28 +17,15 @@ Também é necessário realizar a instalação do SQL Server para coletar os dad
 Para realizar a instalação, siga estas etapas:
 1. Clone o repositório do GitHub:
 ```bash
-git clone https://github.com/Wiryco/automatizacaoMsg.git
+git clone https://github.com/Wiryco/functionsModel.git
 ```
-2. Navegue até o diretório do projeto:
-```bash
-cd automatizacaoMsg
-```
-3. Instale as dependências usando pip:
+2. Instale as dependências usando pip:
 ```python
 pip install -r requirements.txt
 ```
-4. Instale o banco de dados SQL Server.
-5. Navegue até o diretório onde está localizado o script modelo SQL:
-```bash
-cd sql
-```
-7. Execute o script dentro do SQL:
-```sql
-sqlmodel.sql
-```
-8. Execute o codigo principal python:
+3. Execute o codigo principal python:
 ```python
-python sendinfos.py
+python main.py
 ```
 
 ## Estrutura do projeto
