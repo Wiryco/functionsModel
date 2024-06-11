@@ -16,10 +16,10 @@ dotenv.load_dotenv()
 
 class keyVault:
     def __init__(self):
-        self.vaultUrl = os.getenv('AZURE_VAULT_URL')
-        self.tenantId = os.getenv('AZURE_TENANT_ID')
-        self.clientId = os.getenv('AZURE_CLIENT_ID')
-        self.clientSecretId = os.getenv('AZURE_CLIENT_SECRET')
+        self.vaultUrl = os.getenv('azureVaultUrl')
+        self.tenantId = os.getenv('azureTenantId')
+        self.clientId = os.getenv('azureClientId')
+        self.clientSecretId = os.getenv('azureClientSecret')
 
         os.environ['AZURE_TENANT_ID'] = self.tenantId
         os.environ['AZURE_CLIENT_ID'] = self.clientId

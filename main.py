@@ -11,11 +11,11 @@ if __name__ == '__main__':
     
     # print(conection.execDML(query=sql))
 
-    email = fm.email()
+    # email = fm.email()
 
-    files = [r'C:\Projetos\teste.pdf', r'C:\Projetos\teste1.pdf']
+    # files = [r'C:\Projetos\teste.pdf', r'C:\Projetos\teste1.pdf']
 
-    email.sendEmail(to='emailteste@gmail.com', subject='Teste', msg='Teste', sendFiles=files)
+    # email.sendEmail(to='emailteste@gmail.com', subject='Teste', msg='Teste', sendFiles=files)
 
     keyVauly = fm.keyVault()
     key = keyVauly.getSecret(secret='database')
