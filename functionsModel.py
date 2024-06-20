@@ -162,3 +162,11 @@ class email():
 class functions():
     def __init__(self):
         pass
+
+    def onlyLatter(self, _str=str):
+        string = unidecode(_str)
+        return re.sub(r'[^a-zA-Z0-9\s\t]', '', string)
+    
+    def onlyNumber(self, _str=str):
+        string = unidecode(_str)
+        return re.sub(r'[^0-9\t]', '', string)
