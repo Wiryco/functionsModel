@@ -5,12 +5,14 @@ import urllib
 import pandas as pd
 import smtplib
 import codecs
+import re
 from sqlalchemy.orm import sessionmaker
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from azure.keyvault.secrets import SecretClient
 from azure.identity import ClientSecretCredential
+from unidecode import unidecode
 
 dotenv.load_dotenv()
 
