@@ -55,8 +55,3 @@ azureClientId = ''
 azureClientSecret = ''
 azureVaultUrl = ''
 ```
-
-    if (contato.ID_TIPO_ENVIO == 2 or contato.ID_TIPO_ENVIO == 3) and contato.CAMINHO_ARQUIVO:
-        contato_wpp.eventClickFile()
-        contato_wpp.eventSendFile()
-```
